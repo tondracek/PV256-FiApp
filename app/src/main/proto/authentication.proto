@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+//    go get -u github.com/golang/protobuf/protoc-gen-go
+
+package authentication;
+option java_package = "parad0x.fi.proto";
+option java_outer_classname = "Login";
+
+message RegistrationCredentials {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+}
+message LoginCredentials {
+  string email = 2;
+  string password = 3;
+}
+
+message UserId {
+  uint32 userId = 2;
+}
+
+service LoginService {
+  // Unary
+  rpc Registration(RegistrationCredentials) returns (UserId) {};
+  rpc Login(LoginCredentials) returns (UserId) {};
+}
