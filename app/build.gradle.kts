@@ -63,12 +63,16 @@ android {
 protobuf {
     protoc {
         // Ensure that you are using a version compatible with your protobuf runtime libraries
-        artifact = "com.google.protobuf:protoc:${Versions.protobuf}"
+        artifact = "com.google.protobuf:protoc:${Versions.protobuf}:osx-x86_64"
     }
     plugins {
         id("javalite") {
             // Make sure this version is compatible with your runtime version
-            artifact = "com.google.protobuf:protoc-gen-javalite:${Versions.java}"
+            // linux version
+//            artifact = "com.google.protobuf:protoc-gen-javalite:${Versions.java}"
+
+            // mac 3.0.0 version + :osx-x86_64
+            artifact = "com.google.protobuf:protoc-gen-javalite:${Versions.java}:osx-x86_64"
         }
         id("grpc") {
             artifact = "io.grpc:protoc-gen-grpc-java:${Versions.grpc}"

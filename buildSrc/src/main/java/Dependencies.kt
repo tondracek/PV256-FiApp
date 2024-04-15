@@ -285,7 +285,7 @@ object Versions{
     const val buildGradle = "8.3.1"
 
     // grpc
-    const val protobuf = "3.19.1"
+    const val protobuf = "3.21.1"
     const val protobufLite = "3.0.1"
     const val javaxAnnotation = "1.3.2"
     const val grpc = "1.62.2"
