@@ -1,16 +1,11 @@
 import com.google.protobuf.gradle.*
 
-//plugins {
-//    alias(libs.plugins.androidApplication)
-//    alias(libs.plugins.jetbrainsKotlinAndroid)
-//}
 plugins {
-//    id("com.android.library")
     id("com.android.application")
     id("com.google.protobuf")
+    id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
-//    id("com.google.gms.google-services")
 }
 
 android {
@@ -52,12 +47,6 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.11"
     }
-//    packaging {
-//        resources {
-//            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-//        }
-//    }
-
 }
 
 protobuf {
@@ -67,9 +56,12 @@ protobuf {
     }
     plugins {
         id("javalite") {
-            // Make sure this version is compatible with your runtime version
             // linux version
 //            artifact = "com.google.protobuf:protoc-gen-javalite:${Versions.java}"
+
+            // mac 3.0.0 version + :osx-x86_64
+            // linux version
+//            artifact = "com.google.protobuf:protoc-gen-javalite:${Versions.java}:osx-x86_64"
 
             // mac 3.0.0 version + :osx-x86_64
             artifact = "com.google.protobuf:protoc-gen-javalite:${Versions.java}:osx-x86_64"
@@ -116,6 +108,17 @@ dependencies {
     }
     api(Dependencies.Grpc.grpcAndroid)
 
+
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+
+    implementation(Lifecycle.viewModel)
+    implementation(Lifecycle.runtime)
+    implementation(SupportLibraries.core)
+    implementation(SupportLibraries.ui)
+    implementation(SupportLibraries.activity)
+    implementation(SupportLibraries.navigation)
+    implementation(SupportLibraries.material3)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

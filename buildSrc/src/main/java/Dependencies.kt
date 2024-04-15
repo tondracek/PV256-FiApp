@@ -9,12 +9,12 @@ object Version {
     const val supportDesign = "1.3.0-alpha04"
     const val supportCardView = "1.0.0"
     const val supportRecyclerView = "1.1.0"
-    const val supportCore = "1.1.0"
+    const val supportCore = "1.12.0"
     const val fragment = "1.2.1"
 
     const val roomVersion = "2.3.0-alpha03"
 
-    const val lifecycle = "2.1.0"
+    const val lifecycle = "2.7.0"
 
     const val constraintVersion = "1.1.3"
 
@@ -99,7 +99,11 @@ object SupportLibraries {
     val cardView = "androidx.cardview:cardview:${Version.supportCardView}"
     val recyclerView = "androidx.recyclerview:recyclerview:${Version.supportRecyclerView}"
     val core = "androidx.core:core-ktx:${Version.supportCore}"
+    val ui = "androidx.compose.ui:ui:1.6.5"
+    val activity = "androidx.activity:activity-compose:1.8.2"
+    val navigation = "androidx.hilt:hilt-navigation-compose:1.0.0"
     val fragment = "androidx.fragment:fragment-ktx:${Version.fragment}"
+    val material3 = "androidx.compose.material3:material3:1.2.1"
 }
 
 object Glide {
@@ -113,7 +117,6 @@ object Lifecycle {
     val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifecycle}"
     val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Version.lifecycle}"
     val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:${Version.lifecycle}"
-    val reactiveStreams = "androidx.lifecycle:lifecycle-reactivestreams-ktx:${Version.lifecycle}"
 }
 
 object Firebase {
