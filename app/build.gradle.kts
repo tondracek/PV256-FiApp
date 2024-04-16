@@ -63,8 +63,8 @@ protobuf {
             // linux version
 //            artifact = "com.google.protobuf:protoc-gen-javalite:${Versions.java}:osx-x86_64"
 
-            // mac 3.0.0 version + :osx-x86_64
-            artifact = "com.google.protobuf:protoc-gen-javalite:${Versions.java}:osx-x86_64"
+            // win 3.0.0 version + :win-x86_64
+            artifact = "com.google.protobuf:protoc-gen-javalite:${Versions.java}:windows-x86_64"
         }
         id("grpc") {
             artifact = "io.grpc:protoc-gen-grpc-java:${Versions.grpc}"
