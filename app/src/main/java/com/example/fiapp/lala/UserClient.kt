@@ -4,10 +4,10 @@ import io.grpc.ManagedChannelBuilder
 import parad0x.fi.proto.Login
 import parad0x.fi.proto.LoginServiceGrpcKt
 
-class UserClient(private val url: String) {
-    private val port = 8081
+class UserClient() {
+    private val port = 50081
 
-    private val channel = ManagedChannelBuilder.forAddress(url, port).usePlaintext().build()
+    private val channel = ManagedChannelBuilder.forAddress("https://89.221.215.177", port).usePlaintext().build()
     private val stub = LoginServiceGrpcKt.LoginServiceCoroutineStub(channel)
 
     // z hladiska clean arch nie je spravne použivať builder objekty ako parameter do klienta v oboch pripadoch vytvorte nový objekt a tu ho premapujte na bulder objekt a zbuildite ho
