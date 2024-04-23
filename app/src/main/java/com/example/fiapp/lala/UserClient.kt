@@ -1,3 +1,5 @@
+package com.example.fiapp.lala
+
 import com.example.fiapp.lala.LoginUser
 import com.example.fiapp.lala.RegisterUser
 import io.grpc.ManagedChannelBuilder

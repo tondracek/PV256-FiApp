@@ -1,6 +1,5 @@
 package com.example.fiapp
 
-import android.os.UserManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fiapp.lala.UserRepository
@@ -8,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -20,6 +18,7 @@ sealed class Actions {
     data object Register : Actions()
     data object Switch : Actions()
 }
+
 data class LoginUiState(val loggedIn: Boolean = false)
 
 @HiltViewModel
@@ -45,6 +44,7 @@ class LoginViewModel @Inject constructor(
             Actions.Switch -> TODO()
         }
     }
+
     fun login() {
         viewModelScope.launch(Dispatchers.IO) {
             userManager.login("email", "pass")
