@@ -1,5 +1,6 @@
 package com.example.fiapp.lala
 
+import UserClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
