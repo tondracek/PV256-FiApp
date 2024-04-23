@@ -100,8 +100,10 @@ object SupportLibraries {
     val recyclerView = "androidx.recyclerview:recyclerview:${Version.supportRecyclerView}"
     val core = "androidx.core:core-ktx:${Version.supportCore}"
     val ui = "androidx.compose.ui:ui:1.6.5"
+    val material1 = "androidx.compose.material:material:1.0.1"
     val activity = "androidx.activity:activity-compose:1.8.2"
     val navigation = "androidx.hilt:hilt-navigation-compose:1.0.0"
+    val navigationCompose = "androidx.navigation:navigation-compose:2.5.3"
     val fragment = "androidx.fragment:fragment-ktx:${Version.fragment}"
     val material3 = "androidx.compose.material3:material3:1.2.1"
 }
@@ -117,6 +119,7 @@ object Lifecycle {
     val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifecycle}"
     val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Version.lifecycle}"
     val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:${Version.lifecycle}"
+    val savedstate = "androidx.lifecycle:lifecycle-viewmodel-savedstate:1.2.1"
 }
 
 object Firebase {

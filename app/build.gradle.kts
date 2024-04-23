@@ -64,7 +64,7 @@ protobuf {
 //            artifact = "com.google.protobuf:protoc-gen-javalite:${Versions.java}:osx-x86_64"
 
             // win 3.0.0 version + :win-x86_64
-            artifact = "com.google.protobuf:protoc-gen-javalite:${Versions.java}:windows-x86_64"
+            artifact = "com.google.protobuf:protoc-gen-javalite:${Versions.java}:osx-x86_64"
         }
         id("grpc") {
             artifact = "io.grpc:protoc-gen-grpc-java:${Versions.grpc}"
@@ -109,15 +109,21 @@ dependencies {
     api(Dependencies.Grpc.grpcAndroid)
 
 
+    // Timber
+    api(Timber.timber)
+
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 
     implementation(Lifecycle.viewModel)
     implementation(Lifecycle.runtime)
+    implementation(Lifecycle.savedstate)
     implementation(SupportLibraries.core)
     implementation(SupportLibraries.ui)
     implementation(SupportLibraries.activity)
     implementation(SupportLibraries.navigation)
+    implementation(SupportLibraries.navigationCompose)
+    implementation(SupportLibraries.material1)
     implementation(SupportLibraries.material3)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
