@@ -1,5 +1,6 @@
 package com.example.fiapp.di
 
+import com.example.fiapp.data.IUserClient
 import com.example.fiapp.data.UserClient
 import com.example.fiapp.domain.UserRepository
 import dagger.Module
@@ -14,13 +15,13 @@ class DBModuleInjection {
 
     @Singleton
     @Provides
-    fun provideUserClient(): UserClient {
+    fun provideUserClient(): IUserClient {
         return UserClient()
     }
 
     @Singleton
     @Provides
-    fun provideUserRepository(userClient: UserClient): UserRepository {
+    fun provideUserRepository(userClient: IUserClient): UserRepository {
         return UserRepository(userClient)
     }
 }

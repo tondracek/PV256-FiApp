@@ -10,8 +10,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.fiapp.presentation.maincontent.MainActivityContent
-import com.example.fiapp.presentation.maincontent.MainActivityViewModel
+import com.example.fiapp.presentation.maincontent.MainContentScreen
+import com.example.fiapp.presentation.maincontent.MainContentViewModel
 import com.example.fiapp.ui.theme.FiAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,13 +27,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val viewModel = hiltViewModel<MainActivityViewModel>()
+                    val viewModel = hiltViewModel<MainContentViewModel>()
                     val state by viewModel.state.collectAsState()
 
-                    MainActivityContent(
+                    MainContentScreen(
                         state = state,
-                        onRegister = viewModel::register,
-                        onLogin = viewModel::login
+                        onEvent = viewModel::onEvent
                     )
                 }
             }
