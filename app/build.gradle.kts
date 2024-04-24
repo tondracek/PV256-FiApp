@@ -52,7 +52,7 @@ android {
 protobuf {
     protoc {
         // Ensure that you are using a version compatible with your protobuf runtime libraries
-        artifact = "com.google.protobuf:protoc:${Versions.protobuf}:osx-x86_64"
+        artifact = "com.google.protobuf:protoc:${Versions.protobuf}:windows-x86_64"
     }
     plugins {
         id("javalite") {
@@ -140,4 +140,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    /* more icons */
+    implementation("androidx.compose.material:material-icons-extended:1.5.11")
+
+    /* navigation */
+    implementation("androidx.navigation:navigation-compose:2.7.7")
 }

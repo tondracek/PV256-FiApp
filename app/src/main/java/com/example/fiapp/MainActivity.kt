@@ -3,61 +3,84 @@ package com.example.fiapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navigation
+import com.example.fiapp.presentation.Screen
+import com.example.fiapp.presentation.loginscreen.LoginScreen
+import com.example.fiapp.presentation.loginscreen.LoginScreenViewmodel
+import com.example.fiapp.presentation.registrationscreen.RegistrationScreen
+import com.example.fiapp.presentation.registrationscreen.RegistrationScreenViewModel
 import com.example.fiapp.ui.theme.FiAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val myViewModel: LoginViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         setContent {
             FiAppTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+
+                    val navController = rememberNavController()
+
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.UserAuth.route
+                    ) {
+
+                        navigation(
+                            route = Screen.UserAuth.route,
+                            startDestination = Screen.UserAuth.Login.route
+                        ) {
+                            composable(
+                                route = Screen.UserAuth.Login.route
+                            ) {
+                                val viewModel = hiltViewModel<LoginScreenViewmodel>()
+                                val state by viewModel.state.collectAsState()
+
+                                LoginScreen(
+                                    state = state,
+                                    onEvent = viewModel::onEvent,
+                                    navController = navController
+                                )
+                            }
+
+                            composable(
+                                route = Screen.UserAuth.Registration.route
+                            ) {
+                                val viewModel = hiltViewModel<RegistrationScreenViewModel>()
+                                val state by viewModel.state.collectAsState()
+
+                                RegistrationScreen(
+                                    state = state,
+                                    onEvent = viewModel::onEvent,
+                                    navController = navController
+                                )
+                            }
+                        }
+
+                        composable(
+                            route = Screen.UserHome.route
+                        ) {
+
+                        }
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(
-    name: String,
-    modifier: Modifier = Modifier,
-    vm: LoginViewModel = hiltViewModel()
-) {
-    val uiState by vm.uiState.collectAsState()
-    Text(
-        text = "Hello ${uiState.loggedIn}!",
-        modifier = modifier.clickable {
-            vm.emitEvent(event = Actions.Register)
-        }
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    FiAppTheme {
-        Greeting("Android")
     }
 }
