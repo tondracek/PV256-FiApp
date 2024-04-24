@@ -9,7 +9,6 @@ package com.example.fiapp.presentation.maincontent.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
@@ -19,9 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fiapp.presentation.maincontent.MainContentEvent
@@ -29,7 +25,7 @@ import com.example.fiapp.presentation.maincontent.MainContentState
 import com.example.fiapp.ui.theme.FiAppTheme
 
 @Composable
-fun RegisterView(
+fun RegistrationView(
     state: MainContentState,
     onEvent: (MainContentEvent) -> Unit,
 ) {
@@ -47,19 +43,16 @@ fun RegisterView(
             onValueChange = { onEvent(MainContentEvent.ChangeName(it)) },
             label = { Text("Name") }
         )
-        val passwordVisible by remember {
-            mutableStateOf(false)
-        }
-        TextField(
+        PasswordField(
             value = state.password,
             onValueChange = { onEvent(MainContentEvent.ChangePassword(it)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            label = { Text("Password") }
         )
         HorizontalDivider()
         Button(onClick = { onEvent(MainContentEvent.Register) }) {
             Text(text = "Register")
+        }
+        if (state.registrationResponse != null) {
+            Text(text = "Registration response: ${state.registrationResponse}")
         }
     }
 }
@@ -68,7 +61,7 @@ fun RegisterView(
 @Composable
 fun RegisterViewEmptyPreview() {
     FiAppTheme {
-        RegisterView(
+        RegistrationView(
             state = MainContentState(),
             onEvent = {}
         )
@@ -79,7 +72,7 @@ fun RegisterViewEmptyPreview() {
 @Composable
 fun RegisterViewFilledPreview() {
     FiAppTheme {
-        RegisterView(
+        RegistrationView(
             state = MainContentState(
                 email = "test_email",
                 name = "test_name",

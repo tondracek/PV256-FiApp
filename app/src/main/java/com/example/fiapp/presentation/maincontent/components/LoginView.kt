@@ -35,14 +35,16 @@ fun LoginView(
             onValueChange = { onEvent(MainContentEvent.ChangeEmail(it)) },
             label = { Text("Email") }
         )
-        TextField(
+        PasswordField(
             value = state.password,
             onValueChange = { onEvent(MainContentEvent.ChangePassword(it)) },
-            label = { Text("Password") }
         )
         HorizontalDivider()
         Button(onClick = { onEvent(MainContentEvent.Login) }) {
             Text(text = "Login")
+        }
+        if (state.loginResponse != null) {
+            Text(text = "Login response: ${state.loginResponse}")
         }
     }
 }
