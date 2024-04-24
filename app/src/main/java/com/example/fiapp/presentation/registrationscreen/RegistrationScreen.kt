@@ -1,4 +1,4 @@
-package com.example.fiapp.presentation.maincontent.components
+package com.example.fiapp.presentation.registrationscreen
 
 /**
  * This is a view
@@ -6,6 +6,7 @@ package com.example.fiapp.presentation.maincontent.components
  * contains button for register
  */
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -14,20 +15,22 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fiapp.presentation.maincontent.MainContentEvent
-import com.example.fiapp.presentation.maincontent.MainContentState
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.fiapp.presentation.Screen
+import com.example.fiapp.presentation.components.PasswordField
 import com.example.fiapp.ui.theme.FiAppTheme
 
 @Composable
-fun RegistrationView(
-    state: MainContentState,
-    onEvent: (MainContentEvent) -> Unit,
+fun RegistrationScreen(
+    state: RegistrationScreenState,
+    onEvent: (RegistrationScreenEvent) -> Unit,
+    navController: NavController,
 ) {
     Column(
         modifier = Modifier.padding(16.dp),
@@ -35,25 +38,33 @@ fun RegistrationView(
     ) {
         TextField(
             value = state.email,
-            onValueChange = { onEvent(MainContentEvent.ChangeEmail(it)) },
+            onValueChange = { onEvent(RegistrationScreenEvent.ChangeEmail(it)) },
             label = { Text("Email") }
         )
         TextField(
             value = state.name,
-            onValueChange = { onEvent(MainContentEvent.ChangeName(it)) },
+            onValueChange = { onEvent(RegistrationScreenEvent.ChangeName(it)) },
             label = { Text("Name") }
         )
         PasswordField(
             value = state.password,
-            onValueChange = { onEvent(MainContentEvent.ChangePassword(it)) },
+            onValueChange = { onEvent(RegistrationScreenEvent.ChangePassword(it)) },
         )
         HorizontalDivider()
-        Button(onClick = { onEvent(MainContentEvent.Register) }) {
+        Button(onClick = { onEvent(RegistrationScreenEvent.Register) }) {
             Text(text = "Register")
         }
         if (state.registrationResponse != null) {
             Text(text = "Registration response: ${state.registrationResponse}")
         }
+
+        Text(
+            text = "Already have an account? Click here!",
+            textDecoration = TextDecoration.Underline,
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .clickable { navController.navigate(Screen.UserAuth.Login.route) }
+        )
     }
 }
 
@@ -61,9 +72,10 @@ fun RegistrationView(
 @Composable
 fun RegisterViewEmptyPreview() {
     FiAppTheme {
-        RegistrationView(
-            state = MainContentState(),
-            onEvent = {}
+        RegistrationScreen(
+            state = RegistrationScreenState(),
+            onEvent = {},
+            navController = rememberNavController()
         )
     }
 }
@@ -72,13 +84,14 @@ fun RegisterViewEmptyPreview() {
 @Composable
 fun RegisterViewFilledPreview() {
     FiAppTheme {
-        RegistrationView(
-            state = MainContentState(
+        RegistrationScreen(
+            state = RegistrationScreenState(
                 email = "test_email",
                 name = "test_name",
                 password = "test_password"
             ),
-            onEvent = {}
+            onEvent = {},
+            navController = rememberNavController()
         )
     }
 }

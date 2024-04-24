@@ -1,9 +1,9 @@
-package com.example.fiapp.presentation.maincontent
+package com.example.fiapp.presentation.registrationscreen
 
 import com.example.fiapp.domain.LoginResponse
 import com.example.fiapp.domain.RegistrationResponse
 
-data class MainContentState(
+data class RegistrationScreenState(
     val name: String = "",
     val email: String = "",
     val password: String = "",

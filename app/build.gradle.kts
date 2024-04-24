@@ -142,6 +142,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     /* more icons */
-    implementation("androidx.compose.material3:material3-icons-core:1.5.11")
-//    implementation("androidx.compose.material3:material3-icons-extended:1.5.11")
+    implementation("androidx.compose.material:material-icons-extended:1.5.11")
+
+    /* navigation */
+    implementation("androidx.navigation:navigation-compose:2.7.7")
 }

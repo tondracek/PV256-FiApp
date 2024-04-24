@@ -1,10 +1,11 @@
-package com.example.fiapp.presentation.maincontent.components
+package com.example.fiapp.presentation.components
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -32,19 +33,18 @@ fun PasswordField(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = {
-            Button(onClick = { passwordVisible = !passwordVisible }) {
-                Icon(
-                    imageVector = if (passwordVisible) {
-                        Icons.Filled.Person
-                    } else {
-                        Icons.Filled.Person
-                    },
-                    contentDescription = if (passwordVisible) {
-                        "Hide password"
-                    } else {
-                        "Show password"
-                    }
-                )
+            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                if (passwordVisible) {
+                    Icon(
+                        imageVector = Icons.Default.Visibility,
+                        contentDescription = "Hide password"
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Default.VisibilityOff,
+                        contentDescription = "Show password"
+                    )
+                }
             }
         }
     )

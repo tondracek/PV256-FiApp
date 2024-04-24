@@ -10,8 +10,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.fiapp.presentation.maincontent.MainContentScreen
-import com.example.fiapp.presentation.maincontent.MainContentViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navigation
+import com.example.fiapp.presentation.Screen
+import com.example.fiapp.presentation.loginscreen.LoginScreen
+import com.example.fiapp.presentation.loginscreen.LoginScreenViewmodel
+import com.example.fiapp.presentation.registrationscreen.RegistrationScreen
+import com.example.fiapp.presentation.registrationscreen.RegistrationScreenViewModel
 import com.example.fiapp.ui.theme.FiAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,13 +34,51 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val viewModel = hiltViewModel<MainContentViewModel>()
-                    val state by viewModel.state.collectAsState()
 
-                    MainContentScreen(
-                        state = state,
-                        onEvent = viewModel::onEvent
-                    )
+                    val navController = rememberNavController()
+
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.UserAuth.route
+                    ) {
+
+                        navigation(
+                            route = Screen.UserAuth.route,
+                            startDestination = Screen.UserAuth.Login.route
+                        ) {
+                            composable(
+                                route = Screen.UserAuth.Login.route
+                            ) {
+                                val viewModel = hiltViewModel<LoginScreenViewmodel>()
+                                val state by viewModel.state.collectAsState()
+
+                                LoginScreen(
+                                    state = state,
+                                    onEvent = viewModel::onEvent,
+                                    navController = navController
+                                )
+                            }
+
+                            composable(
+                                route = Screen.UserAuth.Registration.route
+                            ) {
+                                val viewModel = hiltViewModel<RegistrationScreenViewModel>()
+                                val state by viewModel.state.collectAsState()
+
+                                RegistrationScreen(
+                                    state = state,
+                                    onEvent = viewModel::onEvent,
+                                    navController = navController
+                                )
+                            }
+                        }
+
+                        composable(
+                            route = Screen.UserHome.route
+                        ) {
+
+                        }
+                    }
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.example.fiapp.presentation.maincontent.components
+package com.example.fiapp.presentation.loginscreen
 
 /**
  * This is a view
@@ -6,6 +6,7 @@ package com.example.fiapp.presentation.maincontent.components
  * contains button for login
  */
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -15,16 +16,20 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fiapp.presentation.maincontent.MainContentEvent
-import com.example.fiapp.presentation.maincontent.MainContentState
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.fiapp.presentation.Screen
+import com.example.fiapp.presentation.components.PasswordField
 import com.example.fiapp.ui.theme.FiAppTheme
 
 @Composable
-fun LoginView(
-    state: MainContentState,
-    onEvent: (MainContentEvent) -> Unit,
+fun LoginScreen(
+    state: LoginScreenState,
+    onEvent: (LoginScreenEvent) -> Unit,
+    navController: NavController,
 ) {
     Column(
         modifier = Modifier.padding(16.dp),
@@ -32,20 +37,27 @@ fun LoginView(
     ) {
         TextField(
             value = state.email,
-            onValueChange = { onEvent(MainContentEvent.ChangeEmail(it)) },
+            onValueChange = { onEvent(LoginScreenEvent.ChangeEmail(it)) },
             label = { Text("Email") }
         )
         PasswordField(
             value = state.password,
-            onValueChange = { onEvent(MainContentEvent.ChangePassword(it)) },
+            onValueChange = { onEvent(LoginScreenEvent.ChangePassword(it)) },
         )
         HorizontalDivider()
-        Button(onClick = { onEvent(MainContentEvent.Login) }) {
+        Button(onClick = { onEvent(LoginScreenEvent.Login) }) {
             Text(text = "Login")
         }
         if (state.loginResponse != null) {
             Text(text = "Login response: ${state.loginResponse}")
         }
+        Text(
+            text = "Don't have an account? Click here!",
+            textDecoration = TextDecoration.Underline,
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .clickable { navController.navigate(Screen.UserAuth.Registration.route) }
+        )
     }
 }
 
@@ -53,9 +65,10 @@ fun LoginView(
 @Composable
 fun LoginViewEmptyPreview() {
     FiAppTheme {
-        LoginView(
-            state = MainContentState(),
-            onEvent = {}
+        LoginScreen(
+            state = LoginScreenState(),
+            onEvent = {},
+            navController = rememberNavController()
         )
     }
 }
@@ -64,12 +77,13 @@ fun LoginViewEmptyPreview() {
 @Composable
 fun LoginViewFilledPreview() {
     FiAppTheme {
-        LoginView(
-            state = MainContentState(
+        LoginScreen(
+            state = LoginScreenState(
                 email = "test_email",
                 password = "test_password"
             ),
-            onEvent = {}
+            onEvent = {},
+            navController = rememberNavController()
         )
     }
 }
