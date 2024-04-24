@@ -1,6 +1,6 @@
 package com.example.fiapp.presentation.loginscreen
 
-import com.example.fiapp.domain.LoginResponse
+import com.example.fiapp.domain.model.LoginResponse
 
 data class LoginScreenState(
     val email: String = "",

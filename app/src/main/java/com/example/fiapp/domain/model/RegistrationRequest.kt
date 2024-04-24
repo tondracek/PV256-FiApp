@@ -1,4 +1,4 @@
-package com.example.fiapp.domain
+package com.example.fiapp.domain.model
 
 import parad0x.fi.proto.Login
 

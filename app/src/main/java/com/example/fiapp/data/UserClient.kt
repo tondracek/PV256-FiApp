@@ -1,13 +1,13 @@
 package com.example.fiapp.data
 
-import com.example.fiapp.domain.LoginRequest
-import com.example.fiapp.domain.LoginResponse
-import com.example.fiapp.domain.RegistrationRequest
-import com.example.fiapp.domain.RegistrationResponse
-import com.example.fiapp.domain.toLoginCredentials
-import com.example.fiapp.domain.toLoginResponse
-import com.example.fiapp.domain.toRegistrationCredentials
-import com.example.fiapp.domain.toRegistrationResponse
+import com.example.fiapp.domain.model.LoginRequest
+import com.example.fiapp.domain.model.LoginResponse
+import com.example.fiapp.domain.model.RegistrationRequest
+import com.example.fiapp.domain.model.RegistrationResponse
+import com.example.fiapp.domain.model.toLoginCredentials
+import com.example.fiapp.domain.model.toLoginResponse
+import com.example.fiapp.domain.model.toRegistrationCredentials
+import com.example.fiapp.domain.model.toRegistrationResponse
 import io.grpc.ManagedChannelBuilder
 import parad0x.fi.proto.LoginServiceGrpcKt
 
@@ -34,6 +34,9 @@ class UserClient : IUserClient {
 
         return try {
             val response = stub.login(loginCredentials)
+            if (response.userId == 0) {
+                return LoginResponse.Error("Invalid password")
+            }
             response.toLoginResponse()
         } catch (e: Exception) {
             LoginResponse.Error(e.message ?: "Unknown error")

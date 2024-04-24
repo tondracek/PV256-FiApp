@@ -2,8 +2,8 @@ package com.example.fiapp.presentation.loginscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fiapp.domain.LoginRequest
 import com.example.fiapp.domain.UserRepository
+import com.example.fiapp.domain.model.LoginRequest
 import com.example.fiapp.presentation.navigation.Navigator
 import com.example.fiapp.presentation.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel

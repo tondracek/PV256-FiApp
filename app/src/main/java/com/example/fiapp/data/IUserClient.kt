@@ -1,9 +1,9 @@
 package com.example.fiapp.data
 
-import com.example.fiapp.domain.LoginRequest
-import com.example.fiapp.domain.LoginResponse
-import com.example.fiapp.domain.RegistrationRequest
-import com.example.fiapp.domain.RegistrationResponse
+import com.example.fiapp.domain.model.LoginRequest
+import com.example.fiapp.domain.model.LoginResponse
+import com.example.fiapp.domain.model.RegistrationRequest
+import com.example.fiapp.domain.model.RegistrationResponse
 
 interface IUserClient {
 

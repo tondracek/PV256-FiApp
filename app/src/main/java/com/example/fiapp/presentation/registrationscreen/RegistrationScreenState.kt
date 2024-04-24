@@ -1,7 +1,7 @@
 package com.example.fiapp.presentation.registrationscreen
 
-import com.example.fiapp.domain.LoginResponse
-import com.example.fiapp.domain.RegistrationResponse
+import com.example.fiapp.domain.model.LoginResponse
+import com.example.fiapp.domain.model.RegistrationResponse
 
 data class RegistrationScreenState(
     val name: String = "",

@@ -4,15 +4,11 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
@@ -25,9 +21,10 @@ import com.example.fiapp.presentation.navigation.Navigator
 import com.example.fiapp.presentation.navigation.Screen
 import com.example.fiapp.presentation.registrationscreen.RegistrationScreen
 import com.example.fiapp.presentation.registrationscreen.RegistrationScreenViewModel
+import com.example.fiapp.presentation.userhomescreen.UserHomeScreen
+import com.example.fiapp.presentation.userhomescreen.UserHomeViewModel
 import com.example.fiapp.ui.theme.FiAppTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -62,7 +59,7 @@ class MainActivity : ComponentActivity() {
                             composable(
                                 route = Screen.UserAuth.Login.route
                             ) {
-                                val viewModel = hiltViewModel<LoginScreenViewmodel>()
+                                val viewModel: LoginScreenViewmodel = hiltViewModel()
                                 val state by viewModel.state.collectAsState()
 
                                 LoginScreen(
@@ -74,7 +71,7 @@ class MainActivity : ComponentActivity() {
                             composable(
                                 route = Screen.UserAuth.Registration.route
                             ) {
-                                val viewModel = hiltViewModel<RegistrationScreenViewModel>()
+                                val viewModel: RegistrationScreenViewModel = hiltViewModel()
                                 val state by viewModel.state.collectAsState()
 
                                 RegistrationScreen(
@@ -87,33 +84,13 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = Screen.UserHome.route
                         ) {
-                            val scope = rememberCoroutineScope()
+                            val viewModel: UserHomeViewModel = hiltViewModel()
+                            val state by viewModel.state.collectAsState()
 
-                            Column {
-                                Button(onClick = {
-                                    scope.launch {
-                                        navigator.navigateTo(Screen.UserAuth.Login)
-                                    }
-                                }) {
-                                    Text("Go back to login")
-                                }
-                                Button(onClick = {
-                                    scope.launch {
-                                        navigator.navigateTo(Screen.UserHome)
-                                    }
-                                }) {
-                                    Text("Add same page to navBackStack")
-                                }
-                                Button(onClick = {
-                                    scope.launch {
-                                        navController.currentBackStack.value.forEach {
-                                            println(it.destination.route)
-                                        }
-                                    }
-                                }) {
-                                    Text(text = "Get navBackStack")
-                                }
-                            }
+                            UserHomeScreen(
+                                state = state,
+                                onEvent = viewModel::onEvent,
+                            )
                         }
                     }
                 }
