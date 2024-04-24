@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fiapp.domain.LoginRequest
 import com.example.fiapp.domain.UserRepository
+import com.example.fiapp.presentation.navigation.Navigator
+import com.example.fiapp.presentation.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,6 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginScreenViewmodel @Inject constructor(
     private val userRepository: UserRepository,
+    private val navigator: Navigator,
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<LoginScreenState> =
@@ -34,6 +37,8 @@ class LoginScreenViewmodel @Inject constructor(
                 _state.update {
                     it.copy(loginResponse = response)
                 }
+
+                navigator.navigateTo(Screen.UserHome)
             }
 
             is LoginScreenEvent.ChangeEmail -> {
@@ -46,6 +51,10 @@ class LoginScreenViewmodel @Inject constructor(
                 _state.update {
                     it.copy(password = event.password)
                 }
+            }
+
+            LoginScreenEvent.OpenRegistration -> {
+                navigator.navigateTo(Screen.UserAuth.Registration)
             }
         }
     }

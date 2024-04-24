@@ -7,4 +7,6 @@ sealed interface RegistrationScreenEvent {
     data class ChangePassword(val password: String) : RegistrationScreenEvent
 
     data object Register : RegistrationScreenEvent
+
+    data object OpenLogin : RegistrationScreenEvent
 }

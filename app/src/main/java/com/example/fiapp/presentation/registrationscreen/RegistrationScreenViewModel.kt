@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fiapp.domain.RegistrationRequest
 import com.example.fiapp.domain.UserRepository
+import com.example.fiapp.presentation.navigation.Navigator
+import com.example.fiapp.presentation.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,6 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegistrationScreenViewModel @Inject constructor(
     private val userRepository: UserRepository,
+    private val navigator: Navigator,
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<RegistrationScreenState> =
@@ -53,6 +56,10 @@ class RegistrationScreenViewModel @Inject constructor(
                 _state.update {
                     it.copy(password = event.password)
                 }
+            }
+
+            RegistrationScreenEvent.OpenLogin -> {
+                navigator.navigateTo(Screen.UserAuth.Login)
             }
         }
     }

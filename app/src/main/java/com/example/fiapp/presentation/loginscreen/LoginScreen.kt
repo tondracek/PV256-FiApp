@@ -19,9 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.fiapp.presentation.Screen
 import com.example.fiapp.presentation.components.PasswordField
 import com.example.fiapp.ui.theme.FiAppTheme
 
@@ -29,7 +26,6 @@ import com.example.fiapp.ui.theme.FiAppTheme
 fun LoginScreen(
     state: LoginScreenState,
     onEvent: (LoginScreenEvent) -> Unit,
-    navController: NavController,
 ) {
     Column(
         modifier = Modifier.padding(16.dp),
@@ -56,7 +52,7 @@ fun LoginScreen(
             textDecoration = TextDecoration.Underline,
             modifier = Modifier
                 .padding(top = 16.dp)
-                .clickable { navController.navigate(Screen.UserAuth.Registration.route) }
+                .clickable { onEvent(LoginScreenEvent.OpenRegistration) }
         )
     }
 }
@@ -66,10 +62,8 @@ fun LoginScreen(
 fun LoginViewEmptyPreview() {
     FiAppTheme {
         LoginScreen(
-            state = LoginScreenState(),
-            onEvent = {},
-            navController = rememberNavController()
-        )
+            state = LoginScreenState()
+        ) {}
     }
 }
 
@@ -81,9 +75,7 @@ fun LoginViewFilledPreview() {
             state = LoginScreenState(
                 email = "test_email",
                 password = "test_password"
-            ),
-            onEvent = {},
-            navController = rememberNavController()
-        )
+            )
+        ) {}
     }
 }

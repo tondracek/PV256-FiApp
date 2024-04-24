@@ -3,6 +3,7 @@ package com.example.fiapp.di
 import com.example.fiapp.data.IUserClient
 import com.example.fiapp.data.UserClient
 import com.example.fiapp.domain.UserRepository
+import com.example.fiapp.presentation.navigation.Navigator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,5 +24,11 @@ class DBModuleInjection {
     @Provides
     fun provideUserRepository(userClient: IUserClient): UserRepository {
         return UserRepository(userClient)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNavigator(): Navigator {
+        return Navigator()
     }
 }

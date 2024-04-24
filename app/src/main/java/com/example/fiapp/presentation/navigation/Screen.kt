@@ -1,4 +1,4 @@
-package com.example.fiapp.presentation
+package com.example.fiapp.presentation.navigation
 
 sealed class Screen(val route: String) {
     data object UserAuth : Screen("user_auth") {
