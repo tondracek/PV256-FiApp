@@ -1,15 +1,16 @@
 package com.example.fiapp.presentation.navigation
 
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import androidx.navigation.NavHostController
 
 class Navigator {
 
-    private val _sharedFlow = MutableSharedFlow<Screen>(extraBufferCapacity = 1)
-    val sharedFlow: SharedFlow<Screen> = _sharedFlow.asSharedFlow()
+    var navController: NavHostController? = null
 
     fun navigateTo(screen: Screen) {
-        _sharedFlow.tryEmit(screen)
+        navController?.navigate(screen.route)
+    }
+
+    fun navigateBack() {
+        navController?.popBackStack()
     }
 }

@@ -10,7 +10,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -49,14 +48,7 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     val navController = rememberNavController()
-
-                    LaunchedEffect(Unit) {
-                        // thanks to this we can do all the logic in the viewmodel
-                        // and pass only one function (onEvent) to the composable
-                        navigator.sharedFlow.collect {
-                            navController.navigate(it.route)
-                        }
-                    }
+                    navigator.navController = navController
 
                     NavHost(
                         navController = navController,
